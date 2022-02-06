@@ -1,0 +1,195 @@
+git --version
+# version control system - keep track of all changes
+git status
+
+# * Working directory
+# * Staging Area --> Git repository
+
+# * git pull -- daily
+
+git init # Initialize Empty Git repository
+git status # current stauts of GIT repository
+git add # Stage changes for commit
+git commit -m "Msg" # Commit staged changes
+git log # shows history of changes
+
+
+# Git configuration:
+git config --global user.name "Sachin Prasad" 
+git config --global user.email "xyz@gmail.com" 
+
+
+# First Commit
+vim readme.md
+git status
+git add readme.md
+git status
+git commit -m 'First commit'
+git status
+
+
+# Git Staging
+vim index.html
+vim readme.md
+git add --all 
+git add .
+git status
+
+
+# Unstaging changes
+git reset HEAD readme.md
+git commit -m 'html page'
+git status
+git add .
+git status
+git commit -m 'readme'
+git status
+
+
+# Viewing git log
+git log --patch
+
+
+# Commiting a folder
+mkdir temp 
+git status 
+# git tracks files not folder --> create empty file
+touch temp/.gitkeep
+git status
+git add .
+git status
+git commit -m 'Add temp folder'
+
+
+# Deleting files
+touch newfile.txt
+git status
+rm newfile.txt
+git status
+rm -rf -- temp
+ls -a 
+git status
+git add .
+git status
+git commit -m 'Deleted'
+
+
+# .gitignore file
+mkdir config
+touch config/private.txt
+git status
+vim .gitignore (config/)
+git status
+ls -a
+git add .
+git commit -m "Added gitignore"
+git status
+
+
+# Creating branch
+git checkout -b feature/new-table
+vim index.html
+git add . 
+git commit -m 'html page'
+git checkout master
+
+
+# Merging a branch 
+git branch -d feature/new-table
+git branch -D feature/new-table (Force delete)
+
+
+git checkout master
+git merge feature/new-table
+git log
+#Fast-forward, if master not changed
+git branch -a 
+git branch -d feature/new-table (After merge)
+
+
+# Merging a branch (recursive)
+git checkout -b bugfix/table
+vim index.html
+git add .
+git status
+git commit -m 'Added html'
+git checkout master 
+vim readme.md
+git commit -m "Learning" # Not fast forward
+git merge bugfix/table # Merge recursive
+
+
+# Rebasing commits
+git checkout -b bugfix/table2
+vim index.html
+git add .
+git commit -m "Added 2nd cell"
+git checkout master
+vim readme.md
+git add .
+git commit -m "Rebase"
+git checkout bugfix/table2
+git log
+git rebase master 
+git log
+git checkout master
+git merge bugfix/table2
+
+
+# Resolving merge conflicts
+git checkout -b bugfix/table3
+vim index.html
+git add .
+git commit -m 'Rename'
+git checkout master
+vim index.html
+git add .
+git commit -m 'Rename again'
+git merge bugfix/table3
+git status
+git merge --abort #Get out of merge
+git status
+git checkout bugfix/table3
+git rebase master
+git rebase --abort #Get out of rebase
+git checkout master
+git merge bugfix/table3
+git status
+vim index.html
+# accept current/incoming change
+git status
+git add index.html
+git status
+git commit -m 'Resolve conflict'
+git status
+
+
+# Working with Remote repositories
+git remote add origin git@gitlab.com:/sachin-0410/new.git
+git remote -v
+
+# Pushing changes to remote repository
+# 1. Make a change
+# 2. Stage it (git add)
+# 3. Commit it (git commit)
+# 4. Share it (git push)
+
+git push origin master
+
+
+
+# Pulling changes from remote repository
+git pull origin master
+
+
+
+# Rebasing while pulling changes
+git reset --hard origin/master
+git log
+git pull origin master --rebase 
+git push origin master 
+
+
+
+# Cloning a remote repository
+git clone ../.git
